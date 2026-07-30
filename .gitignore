@@ -1,1 +1,14 @@
-ye
+# Eclipse
+.classpath
+.project
+.settings/
+
+# VS Code
+.vscode/
+
+# Java compiled files
+bin/
+*.class
+
+# Logs
+*.log
