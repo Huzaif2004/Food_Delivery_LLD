@@ -23,7 +23,10 @@ public class MenuServiceImpl implements MenuService {
                             + restaurantId
                             + " not found.");
         }
-        Restaurant restaurant = restaurantRepository.findById(restaurantId);
+        Restaurant restaurant = restaurantRepository.findById(restaurantId).orElseThrow(()->new RestaurantNotFoundException(
+                "Restaurant with id "
+                + restaurantId
+                + " not found."));
         if (restaurant.getMenuItems().stream().anyMatch(m -> m.getMenuItemId() == menuItemId)) {
             throw new MenuItemAlreadyExistsException("Menu Item id" + menuItemId + "already exist");
         }
@@ -60,12 +63,10 @@ public class MenuServiceImpl implements MenuService {
     }
 
     private Restaurant getRestaurantOrThrow(int restaurantId) {
-        if (!restaurantRepository.existsById(restaurantId)) {
-            throw new RestaurantNotFoundException(
-                    "Restaurant with id "
-                            + restaurantId
-                            + " not found.");
-        }
-        return restaurantRepository.findById(restaurantId);
+        
+    	return restaurantRepository.findById(restaurantId).orElseThrow(()->new RestaurantNotFoundException(
+                "Restaurant with id "
+                + restaurantId
+                + " not found."));
     }
 }

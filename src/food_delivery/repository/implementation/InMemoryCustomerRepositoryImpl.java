@@ -1,40 +1,55 @@
 package food_delivery.repository.implementation;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import food_delivery.model.Customer;
 import food_delivery.repository.CustomerRepository;
 
 public class InMemoryCustomerRepositoryImpl implements CustomerRepository{
 
+	Map<Integer,Customer>customers=new HashMap<>();
 	@Override
 	public void save(Customer customer) {
-		// TODO Auto-generated method stub
+		customers.put(customer.getCustomerId(), customer);
 		
 	}
 
 	@Override
-	public Customer findById(int customerId) {
+	public Optional<Customer> findById(int customerId) {
 		// TODO Auto-generated method stub
-		return null;
+		return Optional.ofNullable(customers.get(customerId));
+		
 	}
 
 	@Override
 	public List<Customer> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<Customer> customer_list=new ArrayList<>();
+		
+		customers.forEach((key,value)->customer_list.add(value));
+		return customer_list;
 	}
 
 	@Override
 	public boolean existsById(int customerId) {
 		// TODO Auto-generated method stub
-		return false;
+		return customers.containsKey(customerId);
 	}
 
 	@Override
 	public void deleteById(int customerId) {
-		// TODO Auto-generated method stub
+		customers.remove(customerId);
 		
+	}
+
+	@Override
+	public Optional<Customer> findByEmail(String email) {
+		
+		return customers.values().stream().filter(c->c.getEmail().equals(email)).findFirst();
 	}
 
 }

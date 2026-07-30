@@ -1,39 +1,45 @@
 package food_delivery.repository.implementation;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import food_delivery.model.Restaurant;
 import food_delivery.repository.RestaurantRepository;
 
 public class InMemoryRestaurantRepository implements RestaurantRepository{
 
+	private final Map<Integer,Restaurant>restaurants=new HashMap<>();
 	@Override
 	public void save(Restaurant restaurant) {
-		// TODO Auto-generated method stub
+		restaurants.put(restaurant.getRestaurantId(),restaurant);
+		
 		
 	}
 
 	@Override
-	public Restaurant findById(int restaurantId) {
+	public Optional<Restaurant> findById(int restaurantId) {
 		// TODO Auto-generated method stub
-		return null;
+		return Optional.ofNullable(restaurants.get(restaurantId));
 	}
 
 	@Override
 	public List<Restaurant> findAll() {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<>(restaurants.values());
 	}
 
 	@Override
 	public boolean existsById(int restaurantId) {
 		// TODO Auto-generated method stub
-		return false;
+		return restaurants.containsKey(restaurantId);
 	}
 
 	@Override
 	public void deleteById(int restaurantId) {
-		// TODO Auto-generated method stub
+		restaurants.remove(restaurantId);
 		
 	}
 
