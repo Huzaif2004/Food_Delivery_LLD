@@ -1,45 +1,43 @@
 package food_delivery.service.implementation;
-import java.util.*;
-import food_delivery.model.*;
+import java.util.Optional;
+
+import food_delivery.exception.InvalidCredentialsException;
+import food_delivery.exception.UserAlreadyExistException;
+import food_delivery.exception.UserNotFoundException;
+import food_delivery.model.Customer;
+import food_delivery.repository.CustomerRepository;
 import food_delivery.service.CustomerService;
-import food_delivery.exception.*;
 public class CustomerServiceImpl implements CustomerService {
-    Map<Integer,Customer> customers=new HashMap<>();
+    private CustomerRepository customerRepository;
 
     public boolean addCustomer(Customer customer){
-        if(customers.containsKey(customer.getCustomerId())){
+        if(customerRepository.existsById(customer.getCustomerId())){
             throw new UserAlreadyExistException("User with id"+customer.getCustomerId()+"already exist");
         }
-        customers.put(customer.getCustomerId(), customer);
+        customerRepository.save(customer);
         return true;
     }
-    public Customer login(int customerId,String email,String password){
-        Customer customer=customers.get(customerId);
-        if(customer==null){
-             throw new UserNotFoundException("User with id"+customerId+" is not found");
-        }
-        if(!customer.getEmail().equals(email) || !customer.getPassword().equals(password)){
+    public Customer login(String email,String password){
+        Customer customer=customerRepository.findByEmail(email).orElseThrow(()->new UserNotFoundException("User with email "+email+" is not found"));
+        if(!customer.getPassword().equals(password)){
             throw new InvalidCredentialsException("Invalid Credentials");
         }
         return customer;
         
     }
-    public void updateCustomer(int customerId,Customer customer){
-        if(!customers.containsKey(customerId)){
-               throw new UserNotFoundException("User with id"+customerId+" is not found");
-        }
-        Customer cust=customers.get(customerId);
-        cust.setName(customer.getName());
-        cust.setPhoneNumber(customer.getPhoneNumber());
-        cust.setEmail(customer.getEmail());
-        cust.setAddress(customer.getAddress());
+    public void updateCustomer(String email,Customer updatedCustomer){
+    	Customer customer=customerRepository.findByEmail(email).orElseThrow(()->new UserNotFoundException("User with email"+email+" is not found"));
+        
+        customer.setName(updatedCustomer.getName());
+        customer.setPhoneNumber(updatedCustomer.getPhoneNumber());
+        customer.setEmail(updatedCustomer.getEmail());
+        customer.setAddress(updatedCustomer.getAddress());
         
     }
-    public Customer viewCustomer(int customerId){
-        if(!customers.containsKey(customerId)){
-               throw new UserNotFoundException("User with id"+customerId+" is not found");
-        }
-        return customers.get(customerId);
+    public Customer viewCustomer(String email){
+    	Customer customer=customerRepository.findByEmail(email).orElseThrow(()->new UserNotFoundException("User with email "+email+" is not found"));
+    	return customer;
     }
+	
     
 }

@@ -26,13 +26,13 @@ public class RestaurantServiceImpl implements RestaurantService{
 
     @Override
     public Restaurant viewRestaurant(int restaurantId) {
-        if(!repository.existsById(restaurantId)){
-            throw new RestaurantNotFoundException(
+        Restaurant restaurant=repository.findById(restaurantId).orElseThrow(()->
+            new RestaurantNotFoundException(
                     "Restaurant with id "
                     + restaurantId
-                    + " not found.");
-        }
-        return repository.findById(restaurantId);
+                    + " not found.")
+        );
+        return restaurant;
     }
 
     @Override
