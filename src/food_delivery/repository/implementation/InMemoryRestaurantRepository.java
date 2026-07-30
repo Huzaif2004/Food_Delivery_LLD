@@ -11,7 +11,7 @@ import food_delivery.repository.RestaurantRepository;
 
 public class InMemoryRestaurantRepository implements RestaurantRepository{
 
-	Map<Integer,Restaurant>restaurants=new HashMap<>();
+	private final Map<Integer,Restaurant>restaurants=new HashMap<>();
 	@Override
 	public void save(Restaurant restaurant) {
 		restaurants.put(restaurant.getRestaurantId(),restaurant);
