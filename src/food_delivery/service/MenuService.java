@@ -1,6 +1,8 @@
 package food_delivery.service;
-import food_delivery.model.*;
 import java.util.List;
+
+import food_delivery.dto.SearchFoodResult;
+import food_delivery.model.MenuItem;
 
 
 
@@ -16,6 +18,6 @@ public interface MenuService {
 
     List<MenuItem> viewMenu(int restaurantId);
 
-    List<MenuItem> searchFood(String keyword);
+    List<SearchFoodResult> searchFood(String keyword);
     
 }

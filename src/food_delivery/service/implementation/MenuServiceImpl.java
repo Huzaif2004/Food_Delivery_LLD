@@ -1,12 +1,14 @@
 package food_delivery.service.implementation;
-import food_delivery.exception.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import food_delivery.dto.SearchFoodResult;
+import food_delivery.exception.MenuItemAlreadyExistsException;
+import food_delivery.exception.RestaurantNotFoundException;
+import food_delivery.model.MenuItem;
+import food_delivery.model.Restaurant;
+import food_delivery.repository.RestaurantRepository;
 import food_delivery.service.MenuService;
-import food_delivery.model.*;
-import food_delivery.repository.*;
 public class MenuServiceImpl implements MenuService {
 
     private final RestaurantRepository restaurantRepository;
@@ -44,8 +46,8 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<MenuItem> searchFood(String keyword) {
-        List<MenuItem> result = new ArrayList<>();
+    public List<SearchFoodResult> searchFood(String keyword) {
+        List<SearchFoodResult> result = new ArrayList<>();
         if (keyword == null || keyword.isBlank()) {
             return result;
         }
@@ -55,7 +57,8 @@ public class MenuServiceImpl implements MenuService {
             for (MenuItem menuItem : restaurant.getMenuItems()) {
                 String menuName = menuItem.getMenuName();
                 if (menuName != null && menuName.toLowerCase().contains(searchKeyword)) {
-                    result.add(menuItem);
+                	SearchFoodResult s=new SearchFoodResult(restaurant,menuItem);
+                    result.add(s);
                 }
             }
         }
