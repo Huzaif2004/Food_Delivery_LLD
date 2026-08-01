@@ -22,7 +22,7 @@ public class Cart {
             throw new InvalidQuantityException(quantity + " is invalid");
         }
         for (CartItem cartitem : cartItems) {
-            if (cartitem.getMenuItem().getMenuItemId().longValue() == item.getMenuItemId().longValue()) {
+            if (cartitem.getMenuItem().getMenuItemId() == item.getMenuItemId()) {
                 cartitem.setQuantity(cartitem.getQuantity() + quantity);
                 return;
             }
@@ -32,7 +32,7 @@ public class Cart {
     }
 
     public void removeItem(int menuItemId) {
-        cartItems.removeIf(m -> m.getMenuItem().getMenuItemId().longValue() == menuItemId);
+        cartItems.removeIf(m -> m.getMenuItem().getMenuItemId() == menuItemId);
 
     }
 

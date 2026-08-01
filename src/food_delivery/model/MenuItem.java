@@ -2,20 +2,20 @@ package food_delivery.model;
 
 public class MenuItem {
 
-    private Long menuItemId;
+    private final int menuItemId;
     private String menuName;
     private double price;
     private String description;
-    private final Restaurant restaurant;
+    private final int  restaurantId;
     
-    public MenuItem(Long menuItemId, String menuName, double price, String description, Restaurant restaurant) {
+    public MenuItem(int menuItemId, String menuName, double price, String description, int restaurantId) {
         this.menuItemId = menuItemId;
         this.menuName = menuName;
         this.price = price;
         this.description = description;
-        this.restaurant = restaurant;
+        this.restaurantId = restaurantId;
     }
-    public Long getMenuItemId() {
+    public int getMenuItemId() {
         return menuItemId;
     }
     public String getMenuName() {
@@ -27,8 +27,8 @@ public class MenuItem {
     public String getDescription() {
         return description;
     }
-    public Restaurant getRestaurant() {
-        return restaurant;
+    public int getRestaurantId() {
+        return restaurantId;
     }
     
     public void setMenuName(String menuName) {
@@ -40,11 +40,7 @@ public class MenuItem {
     public void setDescription(String description) {
         this.description = description;
     }
-    @Override
-    public String toString() {
-        return "MenuItem [menuItemId=" + menuItemId + ", menuName=" + menuName + ", price=" + price + ", description="
-                + description + "]"+restaurant.getRestaurantId();
-    }
+    
 
     
     
