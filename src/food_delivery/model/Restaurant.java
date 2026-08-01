@@ -9,14 +9,13 @@ public class Restaurant {
     private String restaurantName;
     private double rating;
     private String address;
-    private final List<MenuItem> menuItems;
+    
 
     public Restaurant(int restaurantId, String restaurantName, double rating, String address) {
         this.restaurantId = restaurantId;
         this.restaurantName = restaurantName;
         this.rating = rating;
         this.address = address;
-        this.menuItems = new ArrayList<>();
     }
 
     public int getRestaurantId() {
@@ -35,9 +34,6 @@ public class Restaurant {
         return address;
     }
 
-    public List<MenuItem> getMenuItems() {
-        return Collections.unmodifiableList(menuItems);
-    }
 
     public void setRestaurantName(String restaurantName) {
         this.restaurantName = restaurantName;
@@ -54,21 +50,12 @@ public class Restaurant {
         this.address = address;
     }
 
-    public void addMenuItem(Long id, String menuName, double price, String description) {
-
-        MenuItem menuItem = new MenuItem(id, menuName, price, description, this);
-        menuItems.add(menuItem);
-
-    }
-
-    public void removeMenuItem(long menuItemId) {
-        menuItems.removeIf(m -> m.getMenuItemId() == menuItemId);
-    }
+    
 
     @Override
     public String toString() {
         return "Restaurant [restaurantId=" + restaurantId + ", restaurantName=" + restaurantName + ", rating=" + rating
-                + ", address=" + address + ", menuItems=" + menuItems + "]";
+                + ", address=" + address +  "]";
     }
 
     @Override

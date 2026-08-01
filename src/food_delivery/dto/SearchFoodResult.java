@@ -4,18 +4,40 @@ import food_delivery.model.MenuItem;
 import food_delivery.model.Restaurant;
 
 public class SearchFoodResult {
-	private Restaurant restaurant;
-	private MenuItem menuItem;
-	public SearchFoodResult(Restaurant restaurant, MenuItem menuItem) {
+	private String restaurantName;
+	private int menuId;
+	private String menuName;
+	private double price;
+    private String description;
+	public SearchFoodResult(String restaurantName, int menuId,String menuName, double price, String description) {
 		super();
-		this.restaurant = restaurant;
-		this.menuItem = menuItem;
+		this.restaurantName = restaurantName;
+		this.menuId=menuId;
+		this.menuName = menuName;
+		this.price = price;
+		this.description = description;
 	}
-	public Restaurant getRestaurant() {
-		return restaurant;
+	
+	public String getRestaurantName() {
+		return restaurantName;
 	}
-	public MenuItem getMenuItem() {
-		return menuItem;
+
+	
+	public int getMenuId() {
+		return menuId;
+	}
+
+	
+
+	public String getMenuName() {
+		return menuName;
+	}
+	
+	public double getPrice() {
+		return price;
+	}
+	public String getDescrition() {
+		return description;
 	}
 
 	
