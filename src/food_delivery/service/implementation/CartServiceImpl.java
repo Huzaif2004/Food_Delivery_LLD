@@ -87,4 +87,17 @@ public class CartServiceImpl implements CartService{
 		
 	}
 
+	@Override
+	public void replaceCart(int customerId, int menuItemId, int quantity) {
+		Customer customer=customerRepository.findById(customerId)
+				.orElseThrow(()->new UserNotFoundException("User with id"+customerId+" is not found"));
+		MenuItem menuItem=menuRepository.findById(menuItemId)
+				.orElseThrow(()->new MenuItemNotFoundException("Menu item id"+menuItemId+" is not found"));
+		Cart cart=customer.getCart();
+		cart.clearCart();
+		customer.getCart().addItemToCart(menuItem, quantity);
+		
+		
+	}
+
 }
