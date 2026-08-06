@@ -15,5 +15,7 @@ public interface CartService {
 	List<CartItem> viewCartItems(int customerId);
 
 	void clearCart(int customerId);
+	
+	void replaceCart(int customerId,int menuItemId,int quantity);
 
 }
