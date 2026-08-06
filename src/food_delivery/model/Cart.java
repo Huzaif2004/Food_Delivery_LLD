@@ -1,12 +1,17 @@
 package food_delivery.model;
 
-import java.util.*;
-import food_delivery.exception.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import food_delivery.enums.AddItemResult;
+import food_delivery.exception.InvalidQuantityException;
 
 
 
 public class Cart {
 
+	private Integer restaurantId;
     private final List<CartItem> cartItems;
 
     public Cart() {
@@ -17,22 +22,34 @@ public class Cart {
         return Collections.unmodifiableList(cartItems);
     }
 
-    public void addItemToCart(MenuItem item, int quantity) {
+    public AddItemResult addItemToCart(MenuItem item, int quantity) {
         if (quantity <= 0) {
             throw new InvalidQuantityException(quantity + " is invalid");
+        }
+        if(restaurantId==null) {
+        	restaurantId=item.getRestaurantId();
+        }
+        if (!restaurantId.equals(item.getRestaurantId())) {
+            return AddItemResult.DIFFERENT_RESTAURANT;
         }
         for (CartItem cartitem : cartItems) {
             if (cartitem.getMenuItem().getMenuItemId() == item.getMenuItemId()) {
                 cartitem.setQuantity(cartitem.getQuantity() + quantity);
-                return;
+                return AddItemResult.SUCCESS;
             }
         }
         cartItems.add(new CartItem(item, quantity));
+        return AddItemResult.SUCCESS;
 
     }
 
-    public void removeItem(int menuItemId) {
-        cartItems.removeIf(m -> m.getMenuItem().getMenuItemId() == menuItemId);
+    public boolean removeItem(int menuItemId) {
+    	
+        boolean removed=cartItems.removeIf(m -> m.getMenuItem().getMenuItemId() == menuItemId);
+        if(removed && cartItems.isEmpty()) {
+        	restaurantId=null;
+        }
+        return removed;
 
     }
 
@@ -51,6 +68,7 @@ public class Cart {
 
     public void clearCart() {
         cartItems.clear();
+        restaurantId=null;
 
     }
 
@@ -62,5 +80,14 @@ public class Cart {
         }
         return total;
     }
+    public Integer getRestaurantId() {
+    	return restaurantId;
+    }
+    public void assignRestaurantId(Integer restaurnantId) {
+    	if(restaurnantId==null) {
+    	this.restaurantId=restaurnantId;
+    	}
+    }
+    
 
 }

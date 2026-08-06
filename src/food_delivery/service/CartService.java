@@ -1,15 +1,18 @@
 package food_delivery.service;
 
-import food_delivery.model.Cart;
+import java.util.List;
+
+import food_delivery.enums.AddItemResult;
+import food_delivery.model.CartItem;
 
 public interface CartService {
-	void addItem(int customerId, long menuItemId, int quantity);
+	AddItemResult addItem(int customerId, int menuItemId, int quantity);
 
-	void removeItem(int customerId, long menuItemId);
+	void removeItem(int customerId, int menuItemId);
 
-	void updateQuantity(int customerId, long menuItemId, int quantity);
+	void updateQuantity(int customerId, int menuItemId, int quantity);
 
-	Cart viewCart(int customerId);
+	List<CartItem> viewCartItems(int customerId);
 
 	void clearCart(int customerId);
 
