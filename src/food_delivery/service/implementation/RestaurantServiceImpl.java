@@ -2,9 +2,12 @@ package food_delivery.service.implementation;
 
 import java.util.List;
 
+import food_delivery.enums.OrderStatus;
 import food_delivery.exception.RestaurantAlreadyFoundException;
 import food_delivery.exception.RestaurantNotFoundException;
+import food_delivery.model.Order;
 import food_delivery.model.Restaurant;
+import food_delivery.repository.OrderRepository;
 import food_delivery.repository.RestaurantRepository;
 import food_delivery.service.RestaurantService;
 
@@ -12,9 +15,11 @@ public class RestaurantServiceImpl implements RestaurantService{
 
 
     private final RestaurantRepository repository;
+    private final OrderRepository orderRepository;
 
-    public RestaurantServiceImpl(RestaurantRepository repository) {
+    public RestaurantServiceImpl(RestaurantRepository repository,OrderRepository orderRepository) {
         this.repository = repository;
+        this.orderRepository=orderRepository;
     }
     @Override
     public void addRestaurant(Restaurant restaurant) {
@@ -50,5 +55,10 @@ public class RestaurantServiceImpl implements RestaurantService{
         }
         repository.deleteById(restaurantId);
     }
+	@Override
+	public List<Order> viewPendingOrders(int restaurantId) {
+		return orderRepository.findByRestaurantIdAndStatus(restaurantId, OrderStatus.CONFIRMED);
+		
+	}
     
 }
