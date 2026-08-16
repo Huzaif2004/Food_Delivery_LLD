@@ -1,0 +1,6 @@
+package food_delivery.enums;
+
+public enum OrderStatus {
+	CREATED, PAYMENT_PENDING, CONFIRMED, PREPARING, READY_FOR_PICKUP,OUT_FOR_DELIVERY,DELIVERED, CANCELLED
+
+}

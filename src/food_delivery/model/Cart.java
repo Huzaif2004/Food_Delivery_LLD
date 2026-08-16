@@ -88,6 +88,9 @@ public class Cart {
     	this.restaurantId=restaurnantId;
     	}
     }
+    public boolean isCartEmpty() {
+    	return cartItems.size()==0 && restaurantId==null?true:false;
+    }
     
 
 }

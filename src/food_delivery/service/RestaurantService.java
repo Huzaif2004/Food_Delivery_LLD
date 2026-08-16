@@ -1,6 +1,8 @@
 package food_delivery.service;
-import food_delivery.model.*;
 import java.util.List;
+
+import food_delivery.model.Order;
+import food_delivery.model.Restaurant;
 
 
 
@@ -9,6 +11,7 @@ public interface RestaurantService {
     Restaurant viewRestaurant(int restaurantId);
     List<Restaurant>viewAllRestaurants();
     void removeRestaurant(int restaurantId);
+    List<Order> viewPendingOrders(int restaurantId);
     
     
 }
