@@ -11,7 +11,7 @@ import food_delivery.model.Payment;
 import food_delivery.repository.PaymentRepository;
 
 public class InMemoryPaymentRepository implements PaymentRepository{
-	private Map<Integer,Payment> payments=new HashMap<>();
+	private Map<String,Payment> payments=new HashMap<>();
 
 	@Override
 	public void save(Payment payment) {
@@ -19,7 +19,7 @@ public class InMemoryPaymentRepository implements PaymentRepository{
 	}
 
 	@Override
-	public Optional<Payment> findById(int paymentId) {
+	public Optional<Payment> findById(String paymentId) {
 		// TODO Auto-generated method stub
 		return Optional.ofNullable(payments.get(paymentId));
 	}
@@ -31,7 +31,7 @@ public class InMemoryPaymentRepository implements PaymentRepository{
 	}
 
 	@Override
-	public boolean existsById(int paymentId) {
+	public boolean existsById(String paymentId) {
 		// TODO Auto-generated method stub
 		return payments.containsKey(paymentId);
 	}
