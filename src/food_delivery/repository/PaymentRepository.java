@@ -8,9 +8,9 @@ import food_delivery.model.Payment;
 
 public interface PaymentRepository {
 	void save(Payment payment);
-	Optional<Payment> findById(int paymentId);
+	Optional<Payment> findById(String paymentId);
 	List<Payment>findAllPayments();
-	boolean existsById(int paymentId);
+	boolean existsById(String paymentId);
 	Optional<Payment> findByOrderIdAndPaymentStatus(int orderId,PaymentStatus status);
 
 }

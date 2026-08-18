@@ -1,30 +1,31 @@
 package food_delivery.model;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import food_delivery.enums.PaymentStatus;
 import food_delivery.enums.PaymentType;
+import food_delivery.exception.IllegalStateTransitionException;
 
 public class Payment {
-	private int paymentId;
+	private String paymentId;
 	private int orderId;
 	private double amount;
 	private PaymentStatus paymentStatus;
 	private LocalDateTime createdAt;
 	private PaymentType type;
 	private String gatewayTransactionId;
-	public Payment(int paymentId, int orderId, double amount, PaymentStatus paymentStatus, LocalDateTime createdAt,
-			PaymentType type, String gatewayTransactionId) {
+	public Payment(int orderId, double amount, PaymentStatus paymentStatus,
+			PaymentType type) {
 		super();
-		this.paymentId = paymentId;
+		this.paymentId = UUID.randomUUID().toString();
 		this.orderId = orderId;
 		this.amount = amount;
 		this.paymentStatus = paymentStatus;
-		this.createdAt = createdAt;
+		this.createdAt = LocalDateTime.now();
 		this.type = type;
-		this.gatewayTransactionId = gatewayTransactionId;
 	}
-	public int getPaymentId() {
+	public String getPaymentId() {
 		return paymentId;
 	}
 	public int getOrderId() {
@@ -45,6 +46,23 @@ public class Payment {
 	public String getGatewayTransactionId() {
 		return gatewayTransactionId;
 	}
+	public void makePaymentSuccessfull(String transactionId) {
+		if(paymentStatus!=PaymentStatus.INITIATED) {
+		    throw new IllegalStateTransitionException("Payment Status should be Initiated to become Successful");
+		}
+		paymentStatus=PaymentStatus.SUCCESSFUL;
+		gatewayTransactionId=transactionId;
+		
+	}
+	public void makePaymentFailure() {
+		if(paymentStatus!=PaymentStatus.INITIATED) {
+			throw new IllegalStateTransitionException("Payment Status should be Initiated to become Successful");
+		}
+		paymentStatus=PaymentStatus.FAILURE;
+		
+		
+	}
+	
 	
 	
 
