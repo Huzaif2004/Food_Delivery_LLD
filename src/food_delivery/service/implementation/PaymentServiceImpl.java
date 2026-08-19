@@ -8,6 +8,7 @@ import food_delivery.dto.RefundRequest;
 import food_delivery.enums.PaymentStatus;
 import food_delivery.exception.OrderNotFoundException;
 import food_delivery.exception.PaymentAlreadyDoneException;
+import food_delivery.exception.PaymentInProgressException;
 import food_delivery.factory.PaymentFactory;
 import food_delivery.model.Order;
 import food_delivery.model.Payment;
@@ -33,6 +34,10 @@ public class PaymentServiceImpl implements PaymentService{
 		Optional<Payment> existing_payment=paymentRepository.findByOrderIdAndPaymentStatus(request.getOrderId(), PaymentStatus.SUCCESSFUL);
 		if(existing_payment.isPresent()) {
 			throw new PaymentAlreadyDoneException("Payment already successfull for order ID : "+request.getOrderId());
+		}
+		Optional<Payment> initiated_payment=paymentRepository.findByOrderIdAndPaymentStatus(request.getOrderId(), PaymentStatus.INITIATED);
+		if(existing_payment.isPresent()) {
+			throw new PaymentInProgressException("Payment already successfull for order ID : "+request.getOrderId());
 		}
 		Order order = orderRepository.findById(request.getOrderId())
 	            .orElseThrow(() ->
