@@ -3,8 +3,11 @@ package food_delivery.service.implementation;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import food_delivery.dto.RefundRequest;
 import food_delivery.enums.OrderStatus;
+import food_delivery.enums.PaymentStatus;
 import food_delivery.exception.EmptyCartException;
 import food_delivery.exception.OrderNotFoundException;
 import food_delivery.exception.UnauthorizedRestaurantAccessException;
@@ -14,16 +17,38 @@ import food_delivery.model.CartItem;
 import food_delivery.model.Customer;
 import food_delivery.model.Order;
 import food_delivery.model.OrderItem;
+import food_delivery.model.Payment;
 import food_delivery.repository.CustomerRepository;
 import food_delivery.repository.OrderRepository;
+import food_delivery.repository.PaymentRepository;
+import food_delivery.service.CartService;
+import food_delivery.service.CustomerService;
 import food_delivery.service.OrderService;
+import food_delivery.service.PaymentService;
 import food_delivery.utils.OrderIDGenerator;
 
 public class OrderServiceImpl implements OrderService{
 
-	private CustomerRepository customerRepository;
-	private OrderIDGenerator orderIdGenerator;
-	private OrderRepository orderRepository;
+	private final CustomerRepository customerRepository;
+	private final OrderIDGenerator orderIdGenerator;
+	private final OrderRepository orderRepository;
+	private final CustomerService customerService;
+	private final CartService cartService;
+	private final PaymentRepository paymentRepository;
+	private final PaymentService paymentService;
+	public OrderServiceImpl(CustomerRepository customerRepository, OrderIDGenerator orderIdGenerator,
+			OrderRepository orderRepository, CustomerService customerService, CartService cartService, PaymentRepository paymentRepository, PaymentService paymentService) {
+		super();
+		this.customerRepository = customerRepository;
+		this.orderIdGenerator = orderIdGenerator;
+		this.orderRepository = orderRepository;
+		this.customerService = customerService;
+		this.cartService = cartService;
+		this.paymentRepository = paymentRepository;
+		this.paymentService = paymentService;
+		
+	}
+
 	@Override
 	public Order createOrder(int customerId) {
 		Customer customer=customerRepository.findById(customerId)
@@ -42,7 +67,8 @@ public class OrderServiceImpl implements OrderService{
 		}
 		Order o=new Order(orderIdGenerator.generate(),customerId,cart.getRestaurantId(),
 				cart.getTotal(),orderItems,LocalDateTime.now());
-		customer.addOrder(o);
+		customerService.addOrder(customer.getCustomerId(), o);
+		cartService.clearCart(customerId);
 		orderRepository.save(o);
 		return o;
 		
@@ -74,14 +100,18 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public void cancelOrder(int customerId, int orderId) {
+	public void cancelOrder(int orderId) {
 		Order order = orderRepository.findById(orderId)
 	            .orElseThrow(() ->
 	                    new OrderNotFoundException(
 	                            "Order with id " + orderId + " does not exist"
 	                    ));
-		if(order.getOrderStatus()==OrderStatus.CONFIRMED) {
+		Optional<Payment> payment_successful=paymentRepository.findByOrderIdAndPaymentStatus(orderId, PaymentStatus.SUCCESSFUL);
+		if(order.getOrderStatus()==OrderStatus.CONFIRMED && payment_successful.isPresent()) {
 			//refund
+			Payment payment=payment_successful.get();
+			paymentService.refund(new RefundRequest(payment.getPaymentId(),payment.getAmount(),payment.getGatewayTransactionId()));
+			
 		}
 		order.cancelOrder();
 		orderRepository.save(order);
