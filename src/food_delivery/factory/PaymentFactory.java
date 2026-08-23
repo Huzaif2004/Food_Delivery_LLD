@@ -12,7 +12,6 @@ public class PaymentFactory {
             return new CardPayment();
         case UPI:
             return new UpiPayment();
-    
         default:
             throw new IllegalArgumentException("Unsupported payment type: " + type);
     }

@@ -14,6 +14,7 @@ import food_delivery.model.Order;
 import food_delivery.model.Payment;
 import food_delivery.repository.OrderRepository;
 import food_delivery.repository.PaymentRepository;
+import food_delivery.service.OrderService;
 import food_delivery.service.PaymentService;
 import food_delivery.service.PaymentStrategy;
 
@@ -21,15 +22,17 @@ public class PaymentServiceImpl implements PaymentService{
 
 	private final OrderRepository orderRepository;
 	private final PaymentRepository paymentRepository;
+	private final OrderService orderService;
 	
-	public PaymentServiceImpl(OrderRepository orderRepository, PaymentRepository paymentRepository) {
+	public PaymentServiceImpl(OrderRepository orderRepository, PaymentRepository paymentRepository,OrderService orderService) {
 		super();
 		this.orderRepository = orderRepository;
 		this.paymentRepository = paymentRepository;
+		this.orderService = orderService;
 	}
 
 	@Override
-	public void initiatePayment(PaymentRequest request) {
+	public PaymentResponse initiatePayment(PaymentRequest request) {
 		
 		Optional<Payment> existing_payment=paymentRepository.findByOrderIdAndPaymentStatus(request.getOrderId(), PaymentStatus.SUCCESSFUL);
 		if(existing_payment.isPresent()) {
@@ -54,11 +57,14 @@ public class PaymentServiceImpl implements PaymentService{
 		PaymentResponse response=strategy.pay(request, payment.getPaymentId());
 		if(response.getStatus()==PaymentStatus.SUCCESSFUL) {
 			payment.makePaymentSuccessfull(response.getGatewayTransactionId());
+			orderService.confirm(order.getOrderId());
 			
 		}
 		else {
 			payment.makePaymentFailure();
+			
 		}
+		return response;
 		
 	}
 

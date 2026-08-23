@@ -1,16 +1,16 @@
 package food_delivery.dto;
 
 public class RefundRequest {
-    private int paymentId;
+    private String paymentId;
     private double refundAmount;
     private String gatewayTransactionId;
-	public RefundRequest(int paymentId, double refundAmount, String gatewayTransactionId) {
+	public RefundRequest(String paymentId, double refundAmount, String gatewayTransactionId) {
 		super();
 		this.paymentId = paymentId;
 		this.refundAmount = refundAmount;
 		this.gatewayTransactionId = gatewayTransactionId;
 	}
-	public int getPaymentId() {
+	public String getPaymentId() {
 		return paymentId;
 	}
 	public double getRefundAmount() {

@@ -1,10 +1,9 @@
 package food_delivery.service.implementation;
-import java.util.Optional;
-
 import food_delivery.exception.InvalidCredentialsException;
 import food_delivery.exception.UserAlreadyExistException;
 import food_delivery.exception.UserNotFoundException;
 import food_delivery.model.Customer;
+import food_delivery.model.Order;
 import food_delivery.repository.CustomerRepository;
 import food_delivery.service.CustomerService;
 public class CustomerServiceImpl implements CustomerService {
@@ -37,6 +36,14 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer viewCustomer(String email){
     	Customer customer=customerRepository.findByEmail(email).orElseThrow(()->new UserNotFoundException("User with email "+email+" is not found"));
     	return customer;
+    }
+    public void addOrder(int customerId,Order order) {
+    	Customer customer=customerRepository.findById(customerId).
+    			orElseThrow(()->new UserNotFoundException("User with id "+customerId+" is not found"));
+    	if(order!=null) {
+    		customer.addOrder(order);
+    		
+    	}
     }
 	
     
