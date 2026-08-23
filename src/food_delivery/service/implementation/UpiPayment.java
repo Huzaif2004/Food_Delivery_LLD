@@ -7,6 +7,7 @@ import food_delivery.dto.PaymentRequest;
 import food_delivery.dto.PaymentResponse;
 import food_delivery.enums.PaymentStatus;
 import food_delivery.enums.PaymentType;
+import food_delivery.exception.PaymentValidationException;
 import food_delivery.service.PaymentStrategy;
 
 public class UpiPayment implements PaymentStrategy{
@@ -29,6 +30,9 @@ public class UpiPayment implements PaymentStrategy{
 		
 	}
 	public void validateUpiId(String upiId) {
+		if (upiId == null || !upiId.matches("^[\\w.\\-]+@[\\w]+$")) {
+            throw new PaymentValidationException("Invalid UPI ID: " + upiId);
+        }
 		
 	}
 	public GatewayResponse gatewayTransaction(String paymentId,String upiId,double amount) {

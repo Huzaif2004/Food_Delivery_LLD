@@ -4,12 +4,12 @@ import food_delivery.enums.PaymentStatus;
 import food_delivery.enums.PaymentType;
 
 public class PaymentResponse {
-	private int paymentId;
+	private String paymentId;
 	private double amount;
 	private PaymentType type;
 	private PaymentStatus status;
 	private String gatewayTransactionId;
-	public PaymentResponse(int paymentId, int orderId, double amount, PaymentType type, PaymentStatus status,String gatewayTransactionId) {
+	public PaymentResponse(String paymentId,double amount, PaymentType type, PaymentStatus status,String gatewayTransactionId) {
 		super();
 		this.paymentId = paymentId;
 		this.amount = amount;
@@ -17,13 +17,11 @@ public class PaymentResponse {
 		this.status = status;
 		this.gatewayTransactionId=gatewayTransactionId;
 	}
-	public int getPaymentId() {
+	public String getPaymentId() {
 		return paymentId;
 	}
 	
-	public String getGatewayTransactionId() {
-		return gatewayTransactionId;
-	}
+
 	public double getAmount() {
 		return amount;
 	}
@@ -33,6 +31,10 @@ public class PaymentResponse {
 	public PaymentStatus getStatus() {
 		return status;
 	}
+	public String getGatewayTransactionId() {
+		return gatewayTransactionId;
+	}
+	
 	
 	
 
