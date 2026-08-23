@@ -54,6 +54,7 @@ public class PaymentServiceImpl implements PaymentService{
 		PaymentResponse response=strategy.pay(request, payment.getPaymentId());
 		if(response.getStatus()==PaymentStatus.SUCCESSFUL) {
 			payment.makePaymentSuccessfull(response.getGatewayTransactionId());
+			
 		}
 		else {
 			payment.makePaymentFailure();
