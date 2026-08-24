@@ -5,10 +5,14 @@ import java.util.Optional;
 import food_delivery.dto.PaymentRequest;
 import food_delivery.dto.PaymentResponse;
 import food_delivery.dto.RefundRequest;
+import food_delivery.dto.RefundResponse;
 import food_delivery.enums.PaymentStatus;
+import food_delivery.enums.RefundStatus;
 import food_delivery.exception.OrderNotFoundException;
 import food_delivery.exception.PaymentAlreadyDoneException;
 import food_delivery.exception.PaymentInProgressException;
+import food_delivery.exception.PaymentNotFoundException;
+import food_delivery.exception.RefundFailedException;
 import food_delivery.factory.PaymentFactory;
 import food_delivery.model.Order;
 import food_delivery.model.Payment;
@@ -64,13 +68,29 @@ public class PaymentServiceImpl implements PaymentService{
 			payment.makePaymentFailure();
 			
 		}
+		paymentRepository.save(payment);
 		return response;
 		
 	}
 
 	@Override
-	public void refund(RefundRequest refundRequest) {
-		// TODO Auto-generated method stub
+	public RefundResponse refund(RefundRequest refundRequest) {
+		Payment payment = paymentRepository.findById(refundRequest.getPaymentId())
+	            .orElseThrow(() -> new PaymentNotFoundException(
+	                    "Payment not found: " + refundRequest.getPaymentId()));
+		if(payment.getPaymentStatus()!=PaymentStatus.SUCCESSFUL) {
+			throw new IllegalStateException("Cannot refund a payment that was not successful");
+		}
+		PaymentStrategy strategy=PaymentFactory.getStrategy(payment.getType());
+		RefundResponse response=strategy.refund(payment.getPaymentId(), payment.getGatewayTransactionId(),payment.getAmount());
+		if(response.getRefundStatus()==RefundStatus.SUCCESS) {
+			payment.makeRefunded();
+		}
+		else {
+			throw new RefundFailedException("Refund failed for payment: " + payment.getPaymentId());
+		}
+		paymentRepository.save(payment);
+		return response;
 		
 	}
 

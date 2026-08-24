@@ -56,9 +56,17 @@ public class Payment {
 	}
 	public void makePaymentFailure() {
 		if(paymentStatus!=PaymentStatus.INITIATED) {
-			throw new IllegalStateTransitionException("Payment Status should be Initiated to become Successful");
+			throw new IllegalStateTransitionException("Payment Status should be Initiated");
 		}
 		paymentStatus=PaymentStatus.FAILURE;
+		
+		
+	}
+	public void makeRefunded() {
+		if(paymentStatus!=PaymentStatus.SUCCESSFUL) {
+			throw new IllegalStateTransitionException("Payment Status should be Successful to refund");
+		}
+		paymentStatus=PaymentStatus.REFUNDED;
 		
 		
 	}
