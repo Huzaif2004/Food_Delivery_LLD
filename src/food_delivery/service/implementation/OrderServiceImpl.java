@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Optional;
 
 import food_delivery.dto.RefundRequest;
-import food_delivery.dto.RefundResponse;
 import food_delivery.enums.OrderStatus;
 import food_delivery.enums.PaymentStatus;
 import food_delivery.exception.EmptyCartException;
@@ -132,42 +131,6 @@ public class OrderServiceImpl implements OrderService{
 		
 	}
 
-	@Override
-	public void makeReady(int orderId, int restaurantId) {
-		Order order = orderRepository.findById(orderId)
-	            .orElseThrow(() ->
-	                    new OrderNotFoundException(
-	                            "Order with id " + orderId + " does not exist"
-	                    ));
-		if(order.getRestaurantId()!=restaurantId) {
-			throw new UnauthorizedRestaurantAccessException(
-			        "Restaurant " + restaurantId +
-			        " is not authorized to process order " + orderId
-			    );
-		}
-		order.makeReady();
-		orderRepository.save(order);
-		
-		
-		
-	}
-
-	@Override
-	public void makePreparing(int orderId, int restaurantId) {
-		Order order = orderRepository.findById(orderId)
-	            .orElseThrow(() ->
-	                    new OrderNotFoundException(
-	                            "Order with id " + orderId + " does not exist"
-	                    ));
-		if(order.getRestaurantId()!=restaurantId) {
-			throw new UnauthorizedRestaurantAccessException(
-			        "Restaurant " + restaurantId +
-			        " is not authorized to process order " + orderId
-			    );
-		}
-		order.makePreparing();
-		orderRepository.save(order);
-		
-	}
+	
 
 }
