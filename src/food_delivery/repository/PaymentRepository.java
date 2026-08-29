@@ -13,7 +13,7 @@ public interface PaymentRepository {
 	Optional<Payment> findById(String paymentId);
 	List<Payment>findAllPayments();
 	boolean existsById(String paymentId);
-	Optional<Payment> findByOrderIdAndPaymentStatus(int orderId,PaymentStatus status);
+	Optional<Payment> findByOrderIdAndPaymentStatus(String orderId,PaymentStatus status);
 	
 
 }

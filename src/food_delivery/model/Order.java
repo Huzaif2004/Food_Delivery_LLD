@@ -2,22 +2,23 @@ package food_delivery.model;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import food_delivery.enums.OrderStatus;
 import food_delivery.exception.IllegalStateTransitionException;
 
 public class Order {
-	private int orderId;
-	private int customerId;
+	private String orderId;
+	private String customerId;
 	private int restaurantId;
 	private double totalPrice;
 	private List<OrderItem> orderItems;
 	private OrderStatus orderStatus;
 	private LocalDateTime createdAt;
-	public Order(int orderId, int customerId, int restaurantId, double totalPrice, List<OrderItem> orderItems,
+	public Order(String customerId, int restaurantId, double totalPrice, List<OrderItem> orderItems,
 		LocalDateTime createdAt) {
 		super();
-		this.orderId = orderId;
+		this.orderId = UUID.randomUUID().toString();
 		this.customerId = customerId;
 		this.restaurantId = restaurantId;
 		this.totalPrice = totalPrice;
@@ -25,10 +26,10 @@ public class Order {
 		this.orderStatus = OrderStatus.PAYMENT_PENDING;
 		this.createdAt = createdAt;
 	}
-	public int getOrderId() {
+	public String getOrderId() {
 		return orderId;
 	}
-	public int getCustomerId() {
+	public String getCustomerId() {
 		return customerId;
 	}
 	public int getRestaurantId() {

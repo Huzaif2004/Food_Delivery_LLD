@@ -1,22 +1,24 @@
 package food_delivery.model;
 
+import java.util.UUID;
+
 import food_delivery.enums.AccountRole;
 
 public class Account {
-	private Long accountId;
+	private String accountId;
 	private String email;
 	private String password;
 	private AccountRole role;
-	private int associatedId;
-	public Account(Long accountId, String email, String password, AccountRole role, int associatedId) {
+	private String associatedId;
+	public Account(String email, String password, AccountRole role, String associatedId) {
 		super();
-		this.accountId = accountId;
+		this.accountId = UUID.randomUUID().toString();
 		this.email = email;
 		this.password = password;
 		this.role = role;
 		this.associatedId = associatedId;
 	}
-	public Long getAccountId() {
+	public String getAccountId() {
 		return accountId;
 	}
 	public String getEmail() {
@@ -28,7 +30,7 @@ public class Account {
 	public AccountRole getRole() {
 		return role;
 	}
-	public int getAssociatedId() {
+	public String getAssociatedId() {
 		return associatedId;
 	}
 	

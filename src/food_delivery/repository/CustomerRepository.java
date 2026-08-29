@@ -7,13 +7,13 @@ import food_delivery.model.Customer;
 public interface CustomerRepository {
 	void save(Customer customer);
 
-    Optional<Customer> findById(int customerId);
+    Optional<Customer> findById(String customerId);
 
     List<Customer> findAll();
 
-    boolean existsById(int customerId);
+    boolean existsById(String customerId);
 
-    void deleteById(int customerId);
+    void deleteById(String customerId);
     
     Optional<Customer> findByEmail(String email);
 

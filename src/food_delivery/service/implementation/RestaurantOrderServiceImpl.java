@@ -18,7 +18,7 @@ public class RestaurantOrderServiceImpl implements RestaurantOrderService{
 	}
 
 	@Override
-	public void makeReady(int orderId, int restaurantId) {
+	public void makeReady(String orderId, int restaurantId) {
 		Order order = orderRepository.findById(orderId)
 	            .orElseThrow(() ->
 	                    new OrderNotFoundException(
@@ -38,7 +38,7 @@ public class RestaurantOrderServiceImpl implements RestaurantOrderService{
 	}
 
 	@Override
-	public void makePreparing(int orderId, int restaurantId) {
+	public void makePreparing(String orderId, int restaurantId) {
 		Order order = orderRepository.findById(orderId)
 	            .orElseThrow(() ->
 	                    new OrderNotFoundException(

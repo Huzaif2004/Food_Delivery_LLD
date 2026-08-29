@@ -11,7 +11,7 @@ import food_delivery.repository.CustomerRepository;
 
 public class InMemoryCustomerRepositoryImpl implements CustomerRepository{
 
-	Map<Integer,Customer>customers=new HashMap<>();
+	Map<String,Customer>customers=new HashMap<>();
 	@Override
 	public void save(Customer customer) {
 		customers.put(customer.getCustomerId(), customer);
@@ -19,7 +19,7 @@ public class InMemoryCustomerRepositoryImpl implements CustomerRepository{
 	}
 
 	@Override
-	public Optional<Customer> findById(int customerId) {
+	public Optional<Customer> findById(String customerId) {
 		// TODO Auto-generated method stub
 		return Optional.ofNullable(customers.get(customerId));
 		
@@ -35,13 +35,13 @@ public class InMemoryCustomerRepositoryImpl implements CustomerRepository{
 	}
 
 	@Override
-	public boolean existsById(int customerId) {
+	public boolean existsById(String customerId) {
 		// TODO Auto-generated method stub
 		return customers.containsKey(customerId);
 	}
 
 	@Override
-	public void deleteById(int customerId) {
+	public void deleteById(String customerId) {
 		customers.remove(customerId);
 		
 	}

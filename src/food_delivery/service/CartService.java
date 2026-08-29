@@ -6,16 +6,16 @@ import food_delivery.enums.AddItemResult;
 import food_delivery.model.CartItem;
 
 public interface CartService {
-	AddItemResult addItem(int customerId, int menuItemId, int quantity);
+	AddItemResult addItem(String customerId, int menuItemId, int quantity);
 
-	void removeItem(int customerId, int menuItemId);
+	void removeItem(String customerId, int menuItemId);
 
-	void updateQuantity(int customerId, int menuItemId, int quantity);
+	void updateQuantity(String customerId, int menuItemId, int quantity);
 
-	List<CartItem> viewCartItems(int customerId);
+	List<CartItem> viewCartItems(String customerId);
 
-	void clearCart(int customerId);
+	void clearCart(String customerId);
 	
-	void replaceCart(int customerId,int menuItemId,int quantity);
+	void replaceCart(String customerId,int menuItemId,int quantity);
 
 }
