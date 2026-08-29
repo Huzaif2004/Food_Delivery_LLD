@@ -50,7 +50,7 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public Order createOrder(int customerId) {
+	public Order createOrder(String customerId) {
 		Customer customer=customerRepository.findById(customerId)
 				.orElseThrow(()->new UserNotFoundException("User with id"+customerId+" is not found"));
 		Cart cart=customer.getCart();
@@ -65,7 +65,7 @@ public class OrderServiceImpl implements OrderService{
 			orderItems.add(orderItem);
 			
 		}
-		Order o=new Order(orderIdGenerator.generate(),customerId,cart.getRestaurantId(),
+		Order o=new Order(customerId,cart.getRestaurantId(),
 				cart.getTotal(),orderItems,LocalDateTime.now());
 		customerService.addOrder(customer.getCustomerId(), o);
 		cartService.clearCart(customerId);
@@ -76,7 +76,7 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public Order viewOrder(int customerId, int orderId) {
+	public Order viewOrder(String customerId, String orderId) {
 
 	    Order order = orderRepository.findById(orderId)
 	            .orElseThrow(() ->
@@ -100,7 +100,7 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public void cancelOrder(int orderId) {
+	public void cancelOrder(String orderId) {
 		Order order = orderRepository.findById(orderId)
 	            .orElseThrow(() ->
 	                    new OrderNotFoundException(
@@ -120,7 +120,7 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public void confirm(int orderId) {
+	public void confirm(String orderId) {
 		Order order = orderRepository.findById(orderId)
 	            .orElseThrow(() ->
 	                    new OrderNotFoundException(

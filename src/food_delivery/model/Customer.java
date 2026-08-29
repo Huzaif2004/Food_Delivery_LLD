@@ -1,9 +1,11 @@
 package food_delivery.model;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class Customer {
-    private final int customerId;
+    private final String customerId;
     private String name;
     private String phoneNumber;
     private String email;
@@ -14,8 +16,8 @@ public class Customer {
     private final List<Order> orderHistory;
     private final Cart cart;
 
-    public Customer(int customerId, String name, String phoneNumber, String email, String address, String password) {
-        this.customerId = customerId;
+    public Customer(String name, String phoneNumber, String email, String address, String password) {
+        this.customerId = UUID.randomUUID().toString();
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -26,7 +28,7 @@ public class Customer {
     }
 
     // Getters
-    public int getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 

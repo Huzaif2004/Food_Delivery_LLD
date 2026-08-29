@@ -12,14 +12,14 @@ import food_delivery.repository.OrderRepository;
 
 public class OrderRepositoryImpl implements OrderRepository{
 
-	private final Map<Integer, Order> orders = new HashMap<>();
+	private final Map<String, Order> orders = new HashMap<>();
 	@Override
     public void save(Order order) {
         orders.put(order.getOrderId(), order);
     }
 
     @Override
-    public Optional<Order> findById(int orderId) {
+    public Optional<Order> findById(String orderId) {
         return Optional.ofNullable(orders.get(orderId));
     }
 
@@ -29,12 +29,12 @@ public class OrderRepositoryImpl implements OrderRepository{
     }
 
     @Override
-    public boolean existsById(int orderId) {
+    public boolean existsById(String orderId) {
         return orders.containsKey(orderId);
     }
 
     @Override
-    public void deleteById(int orderId) {
+    public void deleteById(String orderId) {
         orders.remove(orderId);
     }
 

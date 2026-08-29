@@ -9,13 +9,13 @@ import food_delivery.exception.IllegalStateTransitionException;
 
 public class Payment {
 	private String paymentId;
-	private int orderId;
+	private String orderId;
 	private double amount;
 	private PaymentStatus paymentStatus;
 	private LocalDateTime createdAt;
 	private PaymentType type;
 	private String gatewayTransactionId;
-	public Payment(int orderId, double amount, PaymentStatus paymentStatus,
+	public Payment(String orderId, double amount, PaymentStatus paymentStatus,
 			PaymentType type) {
 		super();
 		this.paymentId = UUID.randomUUID().toString();
@@ -28,7 +28,7 @@ public class Payment {
 	public String getPaymentId() {
 		return paymentId;
 	}
-	public int getOrderId() {
+	public String getOrderId() {
 		return orderId;
 	}
 	public double getAmount() {

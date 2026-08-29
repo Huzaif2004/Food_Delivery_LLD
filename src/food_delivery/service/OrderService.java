@@ -6,11 +6,11 @@ import food_delivery.enums.OrderStatus;
 import food_delivery.model.Order;
 
 public interface OrderService {
-	Order createOrder(int customerId);
-	Order viewOrder(int customerId,int orderId);
+	Order createOrder(String customerId);
+	Order viewOrder(String customerId,String orderId);
 	List<Order> viewAllOrders();
-	void cancelOrder(int orderId);
-	void confirm(int orderId);
+	void cancelOrder(String orderId);
+	void confirm(String orderId);
 	
 
 }

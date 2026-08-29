@@ -26,7 +26,7 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public AddItemResult addItem(int customerId, int  menuItemId, int quantity) {
+	public AddItemResult addItem(String customerId, int  menuItemId, int quantity) {
 		
 		Customer customer=customerRepository.findById(customerId)
 				.orElseThrow(()->new UserNotFoundException("User with id"+customerId+" is not found"));
@@ -40,7 +40,7 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public void removeItem(int customerId, int menuItemId) {
+	public void removeItem(String customerId, int menuItemId) {
 		// TODO Auto-generated method stub
 		Customer customer=customerRepository.findById(customerId)
 				.orElseThrow(()->new UserNotFoundException("User with id"+customerId+" is not found"));
@@ -56,7 +56,7 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public void updateQuantity(int customerId, int menuItemId, int quantity) {
+	public void updateQuantity(String customerId, int menuItemId, int quantity) {
 		// TODO Auto-generated method stub
 		Customer customer=customerRepository.findById(customerId)
 				.orElseThrow(()->new UserNotFoundException("User with id"+customerId+" is not found"));
@@ -72,7 +72,7 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public List<CartItem> viewCartItems(int customerId) {
+	public List<CartItem> viewCartItems(String customerId) {
 		Customer customer=customerRepository.findById(customerId)
 				.orElseThrow(()->new UserNotFoundException("User with id"+customerId+" is not found"));
 		return customer.getCart().getCartItem();
@@ -80,7 +80,7 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public void clearCart(int customerId) {
+	public void clearCart(String customerId) {
 		Customer customer=customerRepository.findById(customerId)
 				.orElseThrow(()->new UserNotFoundException("User with id"+customerId+" is not found"));
 		customer.getCart().clearCart();
@@ -88,7 +88,7 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public void replaceCart(int customerId, int menuItemId, int quantity) {
+	public void replaceCart(String customerId, int menuItemId, int quantity) {
 		Customer customer=customerRepository.findById(customerId)
 				.orElseThrow(()->new UserNotFoundException("User with id"+customerId+" is not found"));
 		MenuItem menuItem=menuRepository.findById(menuItemId)

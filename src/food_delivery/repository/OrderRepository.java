@@ -9,13 +9,13 @@ import food_delivery.model.Order;
 public interface OrderRepository {
 	void save(Order order);
 
-    Optional<Order> findById(int orderId);
+    Optional<Order> findById(String orderId);
 
     List<Order> findAll();
 
-    boolean existsById(int orderId);
+    boolean existsById(String orderId);
 
-    void deleteById(int orderId);
+    void deleteById(String orderId);
     
     List<Order> findByRestaurantIdAndStatus(int restaurantId, OrderStatus status);
 
