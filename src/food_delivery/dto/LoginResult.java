@@ -6,8 +6,8 @@ public class LoginResult {
 	private String accountId;
 	private String email;
 	private AccountRole role;
-	private int associatedId;
-	public LoginResult(String accountId, String email, AccountRole role, int associatedId) {
+	private String associatedId;
+	public LoginResult(String accountId, String email, AccountRole role, String associatedId) {
 		super();
 		this.accountId = accountId;
 		this.email = email;
@@ -23,7 +23,7 @@ public class LoginResult {
 	public AccountRole getRole() {
 		return role;
 	}
-	public int getAssociatedId() {
+	public String getAssociatedId() {
 		return associatedId;
 	}
 	
