@@ -13,3 +13,5 @@ bin/
 # Logs
 *.log
 TODO.md
+
+lib/
