@@ -10,12 +10,12 @@ import food_delivery.exception.IllegalStateTransitionException;
 public class Order {
 	private String orderId;
 	private String customerId;
-	private int restaurantId;
+	private String restaurantId;
 	private double totalPrice;
 	private List<OrderItem> orderItems;
 	private OrderStatus orderStatus;
 	private LocalDateTime createdAt;
-	public Order(String customerId, int restaurantId, double totalPrice, List<OrderItem> orderItems,
+	public Order(String customerId, String restaurantId, double totalPrice, List<OrderItem> orderItems,
 		LocalDateTime createdAt) {
 		super();
 		this.orderId = UUID.randomUUID().toString();
@@ -32,7 +32,7 @@ public class Order {
 	public String getCustomerId() {
 		return customerId;
 	}
-	public int getRestaurantId() {
+	public String getRestaurantId() {
 		return restaurantId;
 	}
 	public double getTotalPrice() {

@@ -3,22 +3,23 @@ package food_delivery.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 public class Restaurant {
-    private final int restaurantId;
+    private final String restaurantId;
     private String restaurantName;
     private double rating;
     private String address;
     
 
-    public Restaurant(int restaurantId, String restaurantName, double rating, String address) {
-        this.restaurantId = restaurantId;
+    public Restaurant(String restaurantName, String address) {
+        this.restaurantId = UUID.randomUUID().toString();
         this.restaurantName = restaurantName;
-        this.rating = rating;
+        this.rating = 5;
         this.address = address;
     }
 
-    public int getRestaurantId() {
+    public String getRestaurantId() {
         return restaurantId;
     }
 
@@ -58,26 +59,5 @@ public class Restaurant {
                 + ", address=" + address +  "]";
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + restaurantId;
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Restaurant other = (Restaurant) obj;
-        if (restaurantId != other.restaurantId)
-            return false;
-        return true;
-    }
-
+    
 }

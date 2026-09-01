@@ -17,6 +17,6 @@ public interface OrderRepository {
 
     void deleteById(String orderId);
     
-    List<Order> findByRestaurantIdAndStatus(int restaurantId, OrderStatus status);
+    List<Order> findByRestaurantIdAndStatus(String restaurantId, OrderStatus status);
 
 }

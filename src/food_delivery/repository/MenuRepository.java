@@ -7,9 +7,9 @@ import food_delivery.model.MenuItem;
 
 public interface MenuRepository {
 	void add(MenuItem item);
-	void removeMenuItem(int menuItemId);
-	boolean existsById(int menuItemId);
+	void removeMenuItem(String menuItemId);
+	boolean existsById(String menuItemId);
 	List<MenuItem>findAll();
-	Optional<MenuItem> findById(int menuItemId);
+	Optional<MenuItem> findById(String menuItemId);
 
 }

@@ -10,7 +10,6 @@ import food_delivery.enums.OrderStatus;
 import food_delivery.enums.PaymentStatus;
 import food_delivery.exception.EmptyCartException;
 import food_delivery.exception.OrderNotFoundException;
-import food_delivery.exception.UnauthorizedRestaurantAccessException;
 import food_delivery.exception.UserNotFoundException;
 import food_delivery.model.Cart;
 import food_delivery.model.CartItem;

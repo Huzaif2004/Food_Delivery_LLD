@@ -1,21 +1,23 @@
 package food_delivery.model;
 
+import java.util.UUID;
+
 public class MenuItem {
 
-    private final int menuItemId;
+    private final String menuItemId;
     private String menuName;
     private double price;
     private String description;
-    private final int  restaurantId;
+    private final String  restaurantId;
     
-    public MenuItem(int menuItemId, String menuName, double price, String description, int restaurantId) {
-        this.menuItemId = menuItemId;
+    public MenuItem(String menuName, double price, String description, String restaurantId) {
+        this.menuItemId = UUID.randomUUID().toString();
         this.menuName = menuName;
         this.price = price;
         this.description = description;
         this.restaurantId = restaurantId;
     }
-    public int getMenuItemId() {
+    public String getMenuItemId() {
         return menuItemId;
     }
     public String getMenuName() {
@@ -27,7 +29,7 @@ public class MenuItem {
     public String getDescription() {
         return description;
     }
-    public int getRestaurantId() {
+    public String getRestaurantId() {
         return restaurantId;
     }
     

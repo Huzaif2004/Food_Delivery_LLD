@@ -18,13 +18,13 @@ public class RestaurantOrderServiceImpl implements RestaurantOrderService{
 	}
 
 	@Override
-	public void makeReady(String orderId, int restaurantId) {
+	public void makeReady(String orderId, String restaurantId) {
 		Order order = orderRepository.findById(orderId)
 	            .orElseThrow(() ->
 	                    new OrderNotFoundException(
 	                            "Order with id " + orderId + " does not exist"
 	                    ));
-		if(order.getRestaurantId()!=restaurantId) {
+		if(!order.getRestaurantId().equals(restaurantId)) {
 			throw new UnauthorizedRestaurantAccessException(
 			        "Restaurant " + restaurantId +
 			        " is not authorized to process order " + orderId
@@ -38,13 +38,13 @@ public class RestaurantOrderServiceImpl implements RestaurantOrderService{
 	}
 
 	@Override
-	public void makePreparing(String orderId, int restaurantId) {
+	public void makePreparing(String orderId, String restaurantId) {
 		Order order = orderRepository.findById(orderId)
 	            .orElseThrow(() ->
 	                    new OrderNotFoundException(
 	                            "Order with id " + orderId + " does not exist"
 	                    ));
-		if(order.getRestaurantId()!=restaurantId) {
+		if(!order.getRestaurantId().equals(restaurantId)){
 			throw new UnauthorizedRestaurantAccessException(
 			        "Restaurant " + restaurantId +
 			        " is not authorized to process order " + orderId
@@ -56,7 +56,7 @@ public class RestaurantOrderServiceImpl implements RestaurantOrderService{
 	}
 
 	@Override
-	public List<Order> findConfirmedOrderByRestaurant(int restaurantId,OrderStatus orderStatus) {
+	public List<Order> findConfirmedOrderByRestaurant(String restaurantId,OrderStatus orderStatus) {
 		return orderRepository.findByRestaurantIdAndStatus(restaurantId,orderStatus);
 	}
 
