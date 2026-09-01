@@ -7,13 +7,13 @@ import food_delivery.model.Restaurant;
 public interface RestaurantRepository {
 	void save(Restaurant restaurant);
 
-    Optional<Restaurant> findById(int restaurantId);
+    Optional<Restaurant> findById(String restaurantId);
 
     List<Restaurant> findAll();
 
-    boolean existsById(int restaurantId);
+    boolean existsById(String restaurantId);
 
-    void deleteById(int restaurantId);
+    void deleteById(String restaurantId);
 
 
 }

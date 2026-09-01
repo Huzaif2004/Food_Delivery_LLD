@@ -7,11 +7,11 @@ import food_delivery.model.Restaurant;
 
 
 public interface RestaurantService {
-    void addRestaurant(Restaurant restaurant);
-    Restaurant viewRestaurant(int restaurantId);
+    void addRestaurant(String restaurantName,String address,String email,String password);
+    Restaurant viewRestaurant(String restaurantId);
     List<Restaurant>viewAllRestaurants();
-    void removeRestaurant(int restaurantId);
-    List<Order> viewPendingOrders(int restaurantId);
+    void removeRestaurant(String restaurantId);
+    
     
     
 }

@@ -11,7 +11,7 @@ import food_delivery.exception.InvalidQuantityException;
 
 public class Cart {
 
-	private Integer restaurantId;
+	private String restaurantId;
     private final List<CartItem> cartItems;
 
     public Cart() {
@@ -43,9 +43,9 @@ public class Cart {
 
     }
 
-    public boolean removeItem(int menuItemId) {
+    public boolean removeItem(String menuItemId) {
     	
-        boolean removed=cartItems.removeIf(m -> m.getMenuItem().getMenuItemId() == menuItemId);
+        boolean removed=cartItems.removeIf(m -> m.getMenuItem().getMenuItemId() .equals (menuItemId));
         if(removed && cartItems.isEmpty()) {
         	restaurantId=null;
         }
@@ -53,12 +53,12 @@ public class Cart {
 
     }
 
-    public boolean updateQuantity(int menuItemId, int quantity) {
+    public boolean updateQuantity(String menuItemId, int quantity) {
         if (quantity <= 0) {
             throw new InvalidQuantityException(quantity + " is invalid");
         }
         for (CartItem cartitem : cartItems) {
-            if (cartitem.getMenuItem().getMenuItemId() == menuItemId) {
+            if (cartitem.getMenuItem().getMenuItemId() .equals (menuItemId)) {
                 cartitem.setQuantity(quantity);
                 return true;
             }
@@ -80,10 +80,10 @@ public class Cart {
         }
         return total;
     }
-    public Integer getRestaurantId() {
+    public String getRestaurantId() {
     	return restaurantId;
     }
-    public void assignRestaurantId(Integer restaurnantId) {
+    public void assignRestaurantId(String restaurnantId) {
     	if(restaurnantId==null) {
     	this.restaurantId=restaurnantId;
     	}

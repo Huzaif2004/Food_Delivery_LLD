@@ -24,20 +24,18 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	@Override
-	public void addMenuItem(int restaurantId, int menuItemId, String name, double price, String description) {
+	public void addMenuItem(String restaurantId, String name, double price, String description) {
 		if (!restaurantRepository.existsById(restaurantId)) {
 			throw new RestaurantNotFoundException("Restaurant with id " + restaurantId + " not found.");
 		}
-		if (menuRepository.existsById(menuItemId)) {
-			throw new MenuItemAlreadyExistsException("Menu item with id " + menuItemId + " already present");
-		}
-		MenuItem item = new MenuItem(menuItemId, name, price, description, restaurantId);
+		
+		MenuItem item = new MenuItem(name, price, description, restaurantId);
 		menuRepository.add(item);
 
 	}
 
 	@Override
-	public void removeMenuItem(int menuItemId) {
+	public void removeMenuItem(String menuItemId) {
 		if (!menuRepository.existsById(menuItemId)) {
 			throw new MenuItemNotFoundException("Menu item with id " + menuItemId + " not present");
 		}
@@ -46,12 +44,12 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	@Override
-	public List<MenuItem> findByRestaurantId(int restaurantId) {
+	public List<MenuItem> findByRestaurantId(String restaurantId) {
 		if (!restaurantRepository.existsById(restaurantId)) {
 			throw new RestaurantNotFoundException("Restaurant with id " + restaurantId + " not found.");
 		}
-		List<MenuItem> result = new ArrayList<>();
-		result=menuRepository.findAll().stream().filter(m->m.getRestaurantId()==restaurantId).toList();
+		
+		List<MenuItem> result=menuRepository.findAll().stream().filter(m->m.getRestaurantId().equals(restaurantId)).toList();
 		return result;
 	}
 
@@ -67,7 +65,8 @@ public class MenuServiceImpl implements MenuService {
 		for (MenuItem menuItem : menuItems) {
 			String menuName = menuItem.getMenuName();
 			if (menuName != null && menuName.toLowerCase().contains(searchKeyword)) {
-				Restaurant restaurant=restaurantRepository.findById(menuItem.getRestaurantId()).orElseThrow(()->new RestaurantNotFoundException("Restaurant with id " + menuItem.getRestaurantId() + " not found.") );
+				Restaurant restaurant=restaurantRepository.findById(menuItem.getRestaurantId()).
+						orElseThrow(()->new RestaurantNotFoundException("Restaurant with id " + menuItem.getRestaurantId() + " not found.") );
 				SearchFoodResult s = new SearchFoodResult(restaurant.getRestaurantName(),menuItem.getMenuItemId(), menuItem.getMenuName(),
 						menuItem.getPrice(), menuItem.getDescription());
 				result.add(s);
@@ -77,7 +76,7 @@ public class MenuServiceImpl implements MenuService {
 
 	}
 
-	private Restaurant getRestaurantOrThrow(int restaurantId) {
+	private Restaurant getRestaurantOrThrow(String restaurantId) {
 
 		return restaurantRepository.findById(restaurantId).orElseThrow(
 				() -> new RestaurantNotFoundException("Restaurant with id " + restaurantId + " not found."));

@@ -10,7 +10,7 @@ import food_delivery.model.MenuItem;
 import food_delivery.repository.MenuRepository;
 
 public class InMemoryMenuRepository implements MenuRepository{
-	private Map<Integer,MenuItem> menuItems=new HashMap<>();
+	private Map<String,MenuItem> menuItems=new HashMap<>();
 
 	@Override
 	public void add(MenuItem item) {
@@ -19,13 +19,13 @@ public class InMemoryMenuRepository implements MenuRepository{
 	}
 
 	@Override
-	public void removeMenuItem(int menuItemId) {
+	public void removeMenuItem(String menuItemId) {
 		menuItems.remove(menuItemId);
 		
 	}
 
 	@Override
-	public boolean existsById(int menuItemId) {
+	public boolean existsById(String menuItemId) {
 		return menuItems.containsKey(menuItemId);
 	}
 
@@ -35,7 +35,7 @@ public class InMemoryMenuRepository implements MenuRepository{
 	}
 
 	@Override
-	public Optional<MenuItem> findById(int menuItemId) {
+	public Optional<MenuItem> findById(String menuItemId) {
 		return Optional.ofNullable(menuItems.get(menuItemId));
 	}
 

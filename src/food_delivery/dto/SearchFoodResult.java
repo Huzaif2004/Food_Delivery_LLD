@@ -5,11 +5,11 @@ import food_delivery.model.Restaurant;
 
 public class SearchFoodResult {
 	private String restaurantName;
-	private int menuId;
+	private String menuId;
 	private String menuName;
 	private double price;
     private String description;
-	public SearchFoodResult(String restaurantName, int menuId,String menuName, double price, String description) {
+	public SearchFoodResult(String restaurantName, String menuId,String menuName, double price, String description) {
 		super();
 		this.restaurantName = restaurantName;
 		this.menuId=menuId;
@@ -23,7 +23,7 @@ public class SearchFoodResult {
 	}
 
 	
-	public int getMenuId() {
+	public String getMenuId() {
 		return menuId;
 	}
 

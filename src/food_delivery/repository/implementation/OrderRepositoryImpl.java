@@ -39,8 +39,8 @@ public class OrderRepositoryImpl implements OrderRepository{
     }
 
 	@Override
-	public List<Order> findByRestaurantIdAndStatus(int restaurantId, OrderStatus status) {
-		return orders.values().stream().filter(o->o.getRestaurantId()==restaurantId)
+	public List<Order> findByRestaurantIdAndStatus(String restaurantId, OrderStatus status) {
+		return orders.values().stream().filter(o->o.getRestaurantId().equals(restaurantId))
 				.filter(o->o.getOrderStatus()==status).toList();
 	}
 
