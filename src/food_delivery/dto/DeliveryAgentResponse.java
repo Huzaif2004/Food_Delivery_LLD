@@ -6,17 +6,19 @@ import food_delivery.model.Location;
 public class DeliveryAgentResponse {
 	private String deliveryAgentId;
 	private String deliveryAgentName;
+	private String deliveryAgentEmail;
 	private String deliveryAgentPhoneNumber;
 	private String vehicleNumber;
 	private DeliveryAgentStatus deliveryAgentStatus;
 	private Location currentLocation;
 	private double currentRating;
-	public DeliveryAgentResponse(String deliveryAgentId, String deliveryAgentName, String deliveryAgentPhoneNumber,
+	public DeliveryAgentResponse(String deliveryAgentId, String deliveryAgentName, String deliveryAgentEmail,String deliveryAgentPhoneNumber,
 			String vehicleNumber, DeliveryAgentStatus deliveryAgentStatus, Location currentLocation,
 			double currentRating) {
 		super();
 		this.deliveryAgentId = deliveryAgentId;
 		this.deliveryAgentName = deliveryAgentName;
+		this.deliveryAgentEmail=deliveryAgentEmail;
 		this.deliveryAgentPhoneNumber = deliveryAgentPhoneNumber;
 		this.vehicleNumber = vehicleNumber;
 		this.deliveryAgentStatus = deliveryAgentStatus;
@@ -28,6 +30,10 @@ public class DeliveryAgentResponse {
 	}
 	public String getDeliveryAgentName() {
 		return deliveryAgentName;
+	}
+	
+	public String getDeliveryAgentEmail() {
+		return deliveryAgentEmail;
 	}
 	public String getDeliveryAgentPhoneNumber() {
 		return deliveryAgentPhoneNumber;

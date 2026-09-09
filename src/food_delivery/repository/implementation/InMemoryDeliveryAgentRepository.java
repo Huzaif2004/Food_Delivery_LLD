@@ -37,4 +37,13 @@ public class InMemoryDeliveryAgentRepository implements DeliveryAgentRepository{
 		
 	}
 
+	@Override
+	public void deleteById(String deliveryAgentId) {
+		// TODO Auto-generated method stub
+		deliveryAgents.remove(deliveryAgentId);
+		
+	}
+
+	
+
 }
