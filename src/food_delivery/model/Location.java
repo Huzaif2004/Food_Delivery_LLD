@@ -14,6 +14,11 @@ public class Location {
 	public String getLongitude() {
 		return longitude;
 	}
-	
+	public void updateLongitude(String longitude) {
+		this.longitude=longitude;
+	}
+	public void updateLatitude(String latitude) {
+		this.latitude=latitude;
+	}
 
 }

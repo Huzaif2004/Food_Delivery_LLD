@@ -2,9 +2,9 @@ package food_delivery.dto;
 
 public class LocationUpdateRequest {
 	private final String deliveryAgentId;
-    private final double latitude;
-    private final double longitude;
-	public LocationUpdateRequest(String deliveryAgentId, double latitude, double longitude) {
+    private final String latitude;
+    private final String longitude;
+	public LocationUpdateRequest(String deliveryAgentId, String latitude, String longitude) {
 		super();
 		this.deliveryAgentId = deliveryAgentId;
 		this.latitude = latitude;
@@ -13,10 +13,10 @@ public class LocationUpdateRequest {
 	public String getDeliveryAgentId() {
 		return deliveryAgentId;
 	}
-	public double getLatitude() {
+	public String getLatitude() {
 		return latitude;
 	}
-	public double getLongitude() {
+	public String getLongitude() {
 		return longitude;
 	}
     
