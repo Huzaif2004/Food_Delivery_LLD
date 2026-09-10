@@ -14,14 +14,14 @@ public class DeliveryAgent {
 	private Location currentLocation;
 	
 	public DeliveryAgent(String deliveryAgentName, String phoneNumber,
-			DeliveryAgentStatus deliveryAgentStatus, double currentRating, String vehicleNumber,
+			String vehicleNumber,
 			Location currentLocation) {
 		super();
 		this.deliveryAgentId = UUID.randomUUID().toString();
 		this.deliveryAgentName = deliveryAgentName;
 		this.phoneNumber = phoneNumber;
-		this.deliveryAgentStatus = deliveryAgentStatus;
-		this.currentRating = currentRating;
+		this.deliveryAgentStatus = DeliveryAgentStatus.ACTIVE;
+		this.currentRating = 5;
 		this.vehicleNumber = vehicleNumber;
 		this.currentLocation = currentLocation;
 	}
@@ -46,6 +46,8 @@ public class DeliveryAgent {
 	public Location getCurrentLocation() {
 		return currentLocation;
 	}
+	
+	
 	public void markAvailable() {
 		if(DeliveryAgentStatus.ACTIVE==deliveryAgentStatus) {
 			throw new IllegalStateException("Delivery Agent is already available");

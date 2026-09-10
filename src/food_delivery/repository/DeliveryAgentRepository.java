@@ -10,6 +10,8 @@ public interface DeliveryAgentRepository {
 	Optional<DeliveryAgent> findById(String deliveryAgentId);
 	List<DeliveryAgent>findAll();
 	void updateDeliveryAgentDetails(DeliveryAgent deliveryAgent);
+	void deleteById(String deliveryAgentId);
+	
 	
 
 }

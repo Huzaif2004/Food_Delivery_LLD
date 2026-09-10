@@ -36,10 +36,6 @@ public class AuthServiceImpl implements AuthService{
 
 	@Override
 	public void register(AccountCreationRequest request) {
-		Optional<Account> existing = accountRepository.findByEmail(request.getEmail());
-	    if (existing.isPresent()) {
-	        throw new AccountAlreadyExistException("An account already exists with email: " + request.getEmail()+", with role "+existing.get().getRole());
-	    }
 		accountRepository.save(new Account(request.getEmail(),request.getPassword(),request.getRole(),request.getAssociatedId()));
 				
 		
