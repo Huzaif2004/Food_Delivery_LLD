@@ -34,7 +34,7 @@ public class Cart {
         }
         for (CartItem cartitem : cartItems) {
             if (cartitem.getMenuItem().getMenuItemId() == item.getMenuItemId()) {
-                cartitem.setQuantity(cartitem.getQuantity() + quantity);
+                cartitem.updateQuantity(cartitem.getQuantity() + quantity);
                 return AddItemResult.SUCCESS;
             }
         }
@@ -59,7 +59,7 @@ public class Cart {
         }
         for (CartItem cartitem : cartItems) {
             if (cartitem.getMenuItem().getMenuItemId() .equals (menuItemId)) {
-                cartitem.setQuantity(quantity);
+                cartitem.updateQuantity(quantity);
                 return true;
             }
         }
